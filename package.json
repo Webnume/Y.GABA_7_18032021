@@ -1,0 +1,19 @@
+{
+  "name": "p7_gaba_yves",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch scss:Css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Webnume/Y.GABA_7_18032021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Webnume/Y.GABA_7_18032021/issues"
+  },
+  "homepage": "https://github.com/Webnume/Y.GABA_7_18032021#readme"
+}
