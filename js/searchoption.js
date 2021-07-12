@@ -7,30 +7,42 @@ export default class SearchOption {
       this.DOM.className = `box ${this.name}`;
       domTarget.appendChild(this.DOM);
       this.render();
-      //   this.DOM.onclick = this.click.bind(this);
+      this.DOM.onclick = this.click.bind(this);
+      this.details =false;
     }
   
     render() {
-      this.DOM.innerHTML = this.template();
+      this.DOM.innerHTML = this.details ? this.templateExpand() : this.template();
     }
   
-    // click(){
-    //   this.count++;
-    //   if (this.count === 3) return this.deleteCard();
-    //   this.details = ! this.details;
-    //   this.render();
-    // }
+    click(){
+      this.details = ! this.details;
+      this.DOM.classList.toggle("expand");
+      // if (this.count === 3) return this.deleteCard();
+      this.render();
+    }
   
     template() {
-  
-    // Add the contents of options[0] to #foo:
-    document.querySelector('main').appendChild(this.makeUL( this.getData(this.name)));
-  
-      return `<div class="topBox"><input type="text" placeholder="${this.name}"><img class="buttonArrow" src="./images/buttonArrow.svg" alt=""></div>
-      <p>${this.getData(this.name)}</p>    
+      return `<div class="topBox"><input type="text" placeholder="${this.name}"><img class="buttonArrow" src="./images/buttonArrow.svg" alt=""></div>  
+        `;
+    }
+    
+    templateExpand() {
+      // this.DOM.classList.toggle("expand");
+      this.content =this.makeUL(this.getData(this.name));
+      return `<div class="topBox"><input type="text" placeholder="${this.name}"><img class="buttonArrow up" src="./images/buttonArrow.svg" alt=""></div> 
+      <ul>${this.content.innerHTML}</ul>
         `;
     }
   
+      // <ul>${this.getData(this.name)}</ul>  
+    /**
+     * [getData description]
+     *
+     * @param   {string}  type  [nom du composant]
+     *
+     * @return  {Array}        [renvoi un tabeau]
+     */
     getData(type){    
       // console.log(this.recipes);
       if (type ==="Ingredients") {

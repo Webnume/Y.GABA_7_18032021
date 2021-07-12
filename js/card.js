@@ -2,7 +2,6 @@ export default class Card {
     constructor(props) {
       this.name = props.name;
       this.recipes = props;
-      this.name=props.name;
       this.time=props.time;
       this.description=props.description;
   
