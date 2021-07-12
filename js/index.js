@@ -4,7 +4,7 @@ import SearchOption from "./searchoption.js"
 
 async function initPage() {
   try {
-    let data = await fetch("../data/recipes.json");
+    let data = await fetch("./data/recipes.json");
     data = await data.json();
     
     new SearchMain(data);
