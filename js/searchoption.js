@@ -1,3 +1,4 @@
+
 export default class SearchOption {
     constructor(domTarget, props) {
       this.name = props.name;
@@ -9,6 +10,7 @@ export default class SearchOption {
       this.render();
       this.DOM.onclick = this.click.bind(this);
       this.details =false;
+      selectMenus[props.name.toLowerCase()] = this;
     }
   
     render() {
@@ -16,22 +18,36 @@ export default class SearchOption {
     }
   
     click(){
+      // console.log(document.querySelectorAll("body > header > section.option-search > .box:not(."+this.name+")"));
+      // document.querySelectorAll("body > header > section.option-search > .box:not("+this.name+")").forEach(child=>{
+      // console.log(document.getElementsByTagName("ul")) ;
+      //     child.classList.remove("expand");
+      //     // child.innerHTML=this.template();   
+      //     this.details =false;
+      // })
+      
+      for (const key of Object.keys(selectMenus)){
+        if (key !== this.name.toLowerCase()) selectMenus[key].unExpand();
+      console.log(key);
+      }
+
       this.details = ! this.details;
-      this.DOM.classList.toggle("expand");
       // if (this.count === 3) return this.deleteCard();
       this.render();
     }
-  
+    
     template() {
+      this.DOM.classList.remove("expand");
       return `<div class="topBox"><input type="text" placeholder="${this.name}"><img class="buttonArrow" src="./images/buttonArrow.svg" alt=""></div>  
         `;
     }
     
     templateExpand() {
-      // this.DOM.classList.toggle("expand");
-      this.content =this.makeUL(this.getData(this.name));
+      this.DOM.classList.add("expand");
+      // document.querySelectorAll("body > header > .option-search > .box > ul").forEach(li=>li.addEventListener("click",(event)=>console.log("ici"+event.target)));
+      // this.content =;
       return `<div class="topBox"><input type="text" placeholder="${this.name}"><img class="buttonArrow up" src="./images/buttonArrow.svg" alt=""></div> 
-      <ul>${this.content.innerHTML}</ul>
+      <ul id="${this.name}">${this.makeUL(this.getData(this.name))}</ul>
         `;
     }
   
@@ -57,9 +73,9 @@ export default class SearchOption {
         }      
         // console.log(ingredients); 
         return ingredients;      
-      }else if(type ==="Appareil"){
-        const appliance = [];
-  
+      }
+      if(type ==="Appareil"){
+        const appliance = [];  
         for(var i = 0; i < this.recipes.length; i++)
         {             
             if(appliance.indexOf(this.recipes[i].appliance) === -1) {
@@ -68,7 +84,8 @@ export default class SearchOption {
         }
         // console.log(appliance); 
         return appliance;
-      }else if(type==="Ustensiles"){
+      }
+      if(type==="Ustensiles"){
         const ustensiles = [];
         for(var i = 0; i < this.recipes.length; i++)
         {
@@ -85,20 +102,34 @@ export default class SearchOption {
       
     makeUL(array) {
       // Create the list element:
-      var list = document.createElement('ul');
+      let html = "";
+      let iteration;
+      // var list = document.createElement('ul');
       for (var i = 0; i < array.length; i++) {
           // Create the list item:
-          var item = document.createElement('li');
-          // Set its contents:
-          item.appendChild(document.createTextNode(array[i]));
-          // Add it to the list:
-          list.appendChild(item);
+          // var item = document.createElement('li');
+          // // Set its contents:
+          // item.appendChild(document.createTextNode(array[i]));
+          // // Add it to the list:
+          // list.appendChild(item);
+          html += `<li onclick="selectMenus.${this.name.toLowerCase()}.select('${array[i]}')">${array[i]}</li>`
       }
       // Finally, return the constructed list:
-      return list;
+      return html;
+    }
+
+    unExpand(){
+      this.details = false;
+      this.render();
     }
   
   
+    select(elementName){
+      event.stopPropagation();
+      event.preventDefault();
+      this.unExpand();
+      console.log(elementName);
+    }
   
   
   

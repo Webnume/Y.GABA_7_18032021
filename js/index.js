@@ -1,6 +1,6 @@
 import Card from "./card.js";
 import SearchMain from "./searchmain.js";
-import SearchOption from "./searchoption.js"
+import SearchOption from "./searchoption.js";
 
 async function initPage() {
   try {
@@ -21,7 +21,8 @@ async function initPage() {
       recipes: data,
     });
     new Card(data);
-
+    
+    console.log(selectMenus)
     // console.log(data)
 // for(var i = 0; i < data.length; i++)
 // {

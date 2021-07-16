@@ -104,6 +104,11 @@ header{
                cursor: unset;
                & li{
                    cursor: pointer;
+                   line-height: 2em;
+                   transition: all 300ms ease-in-out;
+                   &:hover{
+                       background: rgba(255, 255, 255, 0.171);
+                   }
                }
             }
             & .topBox{

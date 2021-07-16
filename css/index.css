@@ -95,6 +95,11 @@ header .option-search .box.expand {
 }
 header .option-search .box.expand li {
   cursor: pointer;
+  line-height: 2em;
+  transition: all 300ms ease-in-out;
+}
+header .option-search .box.expand li:hover {
+  background: rgba(255, 255, 255, 0.171);
 }
 header .option-search .box .topBox {
   display: flex;
