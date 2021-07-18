@@ -6,7 +6,7 @@ async function initPage() {
   try {
     let data = await fetch("./data/recipes.json");
     data = await data.json();
-    
+
     new SearchMain(data);
     new SearchOption(document.querySelector(".option-search"), {
       name: "Ingredients",
@@ -21,16 +21,7 @@ async function initPage() {
       recipes: data,
     });
     new Card(data);
-    
-    console.log(selectMenus)
-    // console.log(data)
-// for(var i = 0; i < data.length; i++)
-// {
-//     console.log(data[i].name); 
-//     console.log(data[i].ingredients); 
-//     console.log(data[i].appliance); 
-//     console.log(data[i].ustensils); 
-// }
+
 
   } catch (err) {
     console.error("Une erreur est survenue", err);

@@ -49,6 +49,7 @@ header .main-search button i {
 }
 header .selected-filters {
   display: flex;
+  flex-wrap: wrap;
 }
 header .selected-filters .content {
   display: flex;
@@ -62,10 +63,29 @@ header .selected-filters .content {
   border-radius: 5px;
   margin-top: 1rem;
   font-weight: 700;
+  margin-right: 1em;
 }
 header .selected-filters .content::after {
   content: url("../images/buttonCross.svg");
   font-size: 2rem;
+}
+header .selected-filters .content.Ingredients {
+  background: #3282F7;
+}
+header .selected-filters .content.Ingredients input {
+  background: #3282F7;
+}
+header .selected-filters .content.Appareil {
+  background: #68D9A4;
+}
+header .selected-filters .content.Appareil input {
+  background: #68D9A4;
+}
+header .selected-filters .content.Ustensiles {
+  background: #ED6454;
+}
+header .selected-filters .content.Ustensiles input {
+  background: #ED6454;
 }
 header .option-search {
   display: flex;
