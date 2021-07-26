@@ -22,7 +22,7 @@ header .main-search input {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background: #E7E7E7;
+  background: #e7e7e7;
   border: none;
   border-radius: 5px 0 0 5px;
   width: 100%;
@@ -37,12 +37,8 @@ header .main-search button {
   border: none;
   width: 20%;
   padding: 15px;
-  background: #E7E7E7;
+  background: #e7e7e7;
   font-size: 17px;
-  cursor: pointer;
-}
-header .main-search button:hover {
-  background: #bbb;
 }
 header .main-search button i {
   font-size: 1.8em;
@@ -55,37 +51,40 @@ header .selected-filters .content {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 107px;
   height: 37px;
   color: white;
-  background: #3282F7;
+  background: #3282f7;
   cursor: pointer;
   border-radius: 5px;
   margin-top: 1rem;
   font-weight: 700;
   margin-right: 1em;
+  padding: 0.6em;
+  font-size: 14px;
+  z-index: 2;
 }
 header .selected-filters .content::after {
   content: url("../images/buttonCross.svg");
+  padding-left: 0.2em;
   font-size: 2rem;
 }
 header .selected-filters .content.Ingredients {
-  background: #3282F7;
+  background: #3282f7;
 }
 header .selected-filters .content.Ingredients input {
-  background: #3282F7;
+  background: #3282f7;
 }
 header .selected-filters .content.Appareil {
-  background: #68D9A4;
+  background: #68d9a4;
 }
 header .selected-filters .content.Appareil input {
-  background: #68D9A4;
+  background: #68d9a4;
 }
 header .selected-filters .content.Ustensiles {
-  background: #ED6454;
+  background: #ed6454;
 }
 header .selected-filters .content.Ustensiles input {
-  background: #ED6454;
+  background: #ed6454;
 }
 header .option-search {
   display: flex;
@@ -124,16 +123,18 @@ header .option-search .box.expand li:hover {
 header .option-search .box .topBox {
   display: flex;
   flex-direction: row;
+  font-size: 18px;
   justify-content: space-evenly;
 }
 header .option-search .box .topBox input {
   width: 80%;
   height: 80%;
-  background: #3282F7;
+  background: #3282f7;
   color: white;
   border: none;
 }
 header .option-search .box .topBox input::placeholder {
+  font-size: 18px;
   color: white;
 }
 header .option-search .box .topBox input:hover, header .option-search .box .topBox input:focus {
@@ -155,39 +156,44 @@ header .option-search .box ul {
   list-style: none;
 }
 header .option-search .box.Ingredients {
-  background: #3282F7;
+  background: #3282f7;
 }
 header .option-search .box.Ingredients input {
-  background: #3282F7;
+  background: #3282f7;
 }
 header .option-search .box.Appareil {
-  background: #68D9A4;
+  background: #68d9a4;
 }
 header .option-search .box.Appareil input {
-  background: #68D9A4;
+  background: #68d9a4;
 }
 header .option-search .box.Ustensiles {
-  background: #ED6454;
+  background: #ed6454;
 }
 header .option-search .box.Ustensiles input {
-  background: #ED6454;
+  background: #ed6454;
 }
 
 main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
   position: absolute;
   top: 38%;
 }
 main .recipe {
   display: flex;
   flex-direction: column;
-  background: #E7E7E7;
+  background: #e7e7e7;
   width: 380px;
   height: 364px;
   border-radius: 5px;
+  overflow: hidden;
 }
 main .recipe img {
   border-radius: 5px 5px 0 0;
-  background: #C7BEBE;
+  background: #c7bebe;
   width: 100%;
   height: 178px;
 }
@@ -200,6 +206,8 @@ main .recipe .recipe-headings {
 }
 main .recipe .recipe-headings .recipe-title {
   font-size: 18px;
+  width: 70%;
+  margin: 0.5em;
 }
 main .recipe .recipe-headings .recipe-clock {
   background: unset;
@@ -207,7 +215,7 @@ main .recipe .recipe-headings .recipe-clock {
   width: 20px;
   height: auto;
   position: absolute;
-  right: 4rem;
+  right: 4.5rem;
 }
 main .recipe .recipe-headings .cookingTiming {
   font-weight: 700;
@@ -223,6 +231,7 @@ main .recipe .recipe-main .recipe-ingredients {
   list-style: none;
   padding-left: 6px;
   margin: 0;
+  line-height: 14px;
 }
 main .recipe .recipe-main .recipe-ingredients .ingredient {
   font-weight: 700;
@@ -234,7 +243,16 @@ main .recipe .recipe-main .recipe-ingredients .quantity {
 main .recipe .recipe-main .description {
   font-size: 12px;
   font-family: "Roboto", sans-serif;
+  height: 78.2px;
   width: 50%;
+  display: block;
+  display: -webkit-box;
+  margin: 0 1em;
+  line-height: 1.4;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /*# sourceMappingURL=index.css.map */

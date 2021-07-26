@@ -10,10 +10,25 @@ export default class SearchOption {
     this.DOM.onclick = this.click.bind(this);
     this.details = false;
     selectMenus[props.name.toLowerCase()] = this;
-    // this.allSelectedFilters = [];
     this.filtersSelectedDOM = document.querySelector(
       "body > header > section.selected-filters"
     );
+    this.DOM.oninput = this.handleOptionSearch.bind(this);
+  }
+
+  handleOptionSearch() {
+    this.search = document.getElementById(this.name);
+    // console.log(this.search);
+    // console.log(this.getData("Ingredients"));
+    console.log(this.search.value);
+    const searchStr = this.search.value.toLowerCase();
+    const filteredData = this
+      .getData("Ingredients")
+      .filter((ingredient) => {
+        ingredient.toLowerCase().includes(searchStr);
+    });
+    console.log(filteredData);
+    return filteredData;
   }
 
   render() {
@@ -115,7 +130,7 @@ export default class SearchOption {
   }
 
   selectedFilterDOM(elementName) {
-    console.log(elementName);
+    // console.log(elementName);
     if (!allSelectedFilters.includes(elementName)) {
       allSelectedFilters.push(elementName);
       this.filtersSelectedDOM.innerHTML += `<div class="content ${
@@ -123,6 +138,7 @@ export default class SearchOption {
       }" onclick="selectMenus.${this.name.toLowerCase()}.removeselectedFilterDOM('${elementName}')">${elementName}</div>`;
     }
     console.log(allSelectedFilters);
+    datamanager.filtersHandle(allSelectedFilters)
   }
 
   removeselectedFilterDOM(elementName) {
@@ -133,6 +149,7 @@ export default class SearchOption {
       event.currentTarget.remove();
     }
     console.log(allSelectedFilters);
+    datamanager.filtersHandle(allSelectedFilters)
   }
 
   setFocusToTextBox(id) {

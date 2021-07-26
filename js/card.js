@@ -1,105 +1,65 @@
 export default class Card {
   constructor(props) {
-    this.name = props.name;
     this.recipes = props;
-    this.time = props.time;
-    this.description = props.description;
-
     this.DOM = document.querySelector("main");
-    // this.DOM.classList = `main-search`;
-    // domTarget.appendChild(this.DOM);
     this.render();
-    //   this.DOM.onclick = this.click.bind(this);
   }
 
   render() {
-    this.DOM.innerHTML = this.template();
+    this.DOM.innerHTML = this.templateMain();
   }
 
-  // click(){
-  //   this.count++;
-  //   if (this.count === 3) return this.deleteCard();
-  //   this.details = ! this.details;
-  //   this.render();
-  // }
+  update(newListRecipes) {
+    this.recipes = newListRecipes;
+    this.render();
+  }
 
-  template() {
-    return `  
+  templateMain() {
+    let cardDOM = "";
+    for (let i = 0; i < this.recipes.length; i++) {
+      cardDOM += `  
       <div class="recipe">
           <img src="https://picsum.photos/380/178" alt="">
           <div class="recipe-headings">
-              <h2 class="recipe-title">${this.name}</h2>
+              <h2 class="recipe-title">${this.recipes[i].name}</h2>
               <img class="recipe-clock" src="./images/cardClock.svg" alt="">
-              <span class="cookingTiming">10min</span>
+              <span class="cookingTiming">${this.recipes[i].time}min</span>
           </div>
           <div class="recipe-main">
               <ul class="recipe-ingredients">
-                  <li><span class="ingredient">Lait de coco:</span><span class="quantity"> 400ml</span></li>
+              ${this.getIngredients(i)}
               </ul>
-              <p class="description">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-  
+              <p class="description">${this.recipes[i].description}</p>  
           </div>
       </div>
         `;
-  }
-
-  getData(type) {
-    // console.log(this.recipes);
-    if (type === "Ingredients") {
-      const ingredients = [];
-      for (var i = 0; i < this.recipes.length; i++) {
-        for (let j = 0; j < this.recipes[i].ingredients.length; j++) {
-          if (
-            ingredients.indexOf(this.recipes[i].ingredients[j].ingredient) ===
-            -1
-          ) {
-            ingredients.push(this.recipes[i].ingredients[j].ingredient);
-          }
-        }
-      }
-      // console.log(ingredients);
-      return ingredients;
-    } else if (type === "Appareil") {
-      const appliance = [];
-
-      for (var i = 0; i < this.recipes.length; i++) {
-        if (appliance.indexOf(this.recipes[i].appliance) === -1) {
-          appliance.push(this.recipes[i].appliance);
-        }
-      }
-      // console.log(appliance);
-      return appliance;
-    } else if (type === "Ustensiles") {
-      const ustensiles = [];
-      for (var i = 0; i < this.recipes.length; i++) {
-        for (let j = 0; j < this.recipes[i].ustensils.length; j++) {
-          if (ustensiles.indexOf(this.recipes[i].ustensils[j]) === -1) {
-            ustensiles.push(this.recipes[i].ustensils[j]);
-          }
-        }
-      }
-      // console.log(ustensiles);
-      return ustensiles;
     }
+    return cardDOM;
   }
 
-  makeUL(array) {
-    // Create the list element:
-    var list = document.createElement("ul");
-    for (var i = 0; i < array.length; i++) {
-      // Create the list item:
-      var item = document.createElement("li");
-      // Set its contents:
-      item.appendChild(document.createTextNode(array[i]));
-      // Add it to the list:
-      list.appendChild(item);
+  getIngredients(i) {
+    let html = "";
+    let ingredient;
+    let quantity;
+    let unit;
+    for (let j = 0; j < this.recipes[i].ingredients.length; j++) {
+      ingredient =
+        this.recipes[i].ingredients[j].ingredient !== undefined
+          ? this.recipes[i].ingredients[j].ingredient
+          : "";
+      quantity =
+        this.recipes[i].ingredients[j].quantity !== undefined
+          ? ": " + this.recipes[i].ingredients[j].quantity
+          : "";
+      unit =
+        this.recipes[i].ingredients[j].unit !== undefined
+          ? this.recipes[i].ingredients[j].unit
+          : "";
+      html += `
+    <li><span class="ingredient">${ingredient}</span><span class="quantity"> ${quantity} ${unit}</span></li>
+
+    `;
     }
-    // Finally, return the constructed list:
-    return list;
+    return html;
   }
-
-  // deleteCard(){
-  //   this.DOM.parentNode.removeChild(this.DOM);
-  //   delete components[this.name];
-  // }
 }
