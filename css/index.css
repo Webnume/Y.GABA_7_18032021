@@ -182,6 +182,10 @@ main {
   position: absolute;
   top: 38%;
 }
+main .noresult {
+  width: 60%;
+  margin: 0 auto;
+}
 main .recipe {
   display: flex;
   flex-direction: column;

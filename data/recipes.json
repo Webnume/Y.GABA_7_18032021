@@ -16,7 +16,7 @@
           {
               "ingredient" : "Crème de coco",
               "quantity" : 2,
-              "unit" : "cuillères à soupe"
+              "unit" : "Cuillères à soupe"
           },
           {
               "ingredient" : "Sucre",
@@ -31,7 +31,7 @@
       "time": 10,
       "description": "Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée",
       "appliance": "Blender",
-      "ustensils": ["cuillère à Soupe", "verres", "presse citron" ]
+      "ustensils": ["Cuillère à soupe", "verres", "presse citron" ]
   },
   {
       "id": 2,
@@ -60,13 +60,13 @@
               "quantity" : 5
           },
           {
-              "ingredient" : "Lait de Coco",
+              "ingredient" : "Lait de coco",
               "quantity" : 100,
               "unit" : "ml"
           }
       ],
       "time": 60,
-      "description": "Découper le thon en dés, mettre dans un plat et recouvrir de jus de citron vert (mieux vaut prendre un plat large et peu profond). Laisser reposer au réfrigérateur au moins 2 heures. (Si possible faites-le le soir pour le lendemain. Après avoir laissé mariner le poisson, coupez le concombre en fines rondelles sans la peau et les tomates en prenant soin de retirer les pépins. Rayer la carotte. Ajouter les légumes au poissons avec le citron cette fois ci dans un Saladier. Ajouter le lait de coco. Pour ajouter un peu plus de saveur vous pouver ajouter 1 à 2 cuillères à soupe de Crème de coco",
+      "description": "Découper le thon en dés, mettre dans un plat et recouvrir de jus de citron vert (mieux vaut prendre un plat large et peu profond). Laisser reposer au réfrigérateur au moins 2 heures. (Si possible faites-le le soir pour le lendemain. Après avoir laissé mariner le poisson, coupez le concombre en fines rondelles sans la peau et les tomates en prenant soin de retirer les pépins. Rayer la carotte. Ajouter les légumes au poissons avec le citron cette fois ci dans un Saladier. Ajouter le lait de coco. Pour ajouter un peu plus de saveur vous pouver ajouter 1 à 2 Cuillères à soupe de Crème de coco",
       "appliance": "Saladier",
       "ustensils": ["presse citron"]
   },{
@@ -163,7 +163,7 @@
          {
              "ingredient": "Crème fraiche",
              "quantity": 2,
-             "unit": "cuillères à soupe"
+             "unit": "Cuillères à soupe"
          },
          {
              "ingredient": "gruyère râpé",
@@ -173,7 +173,7 @@
          {
               "ingredient": "Moutarde de Dijon",
               "quantity": 1,
-              "unite": "cuillères à soupe"
+              "unite": "Cuillères à soupe"
          }
       ],
       "time": 45,
@@ -204,7 +204,7 @@
               "unit": "cl"
           },
           {
-              "ingredient": "Sucre en Poudre",
+              "ingredient": "Sucre en poudre",
               "quantity": 100,
               "unit":"grammes"
           },
@@ -277,7 +277,7 @@
               "quantity": 2
          },
          {
-             "ingredient": "Sucre en Poudre",
+             "ingredient": "Sucre en poudre",
              "quantity": "110",
              "unit": "grammes"
          },
@@ -450,12 +450,12 @@
           {
               "ingredient": "Vinaigre de cidre",
               "quantity": 1,
-              "unit":"cuillère à soupe"
+              "unit":"Cuillère à soupe"
           },
           {
               "ingredient": "huile d'olive",
               "quantity": 2,
-              "unit": "cuillère à soupe"
+              "unit": "Cuillère à soupe"
           }
       ],
       "time":40,
@@ -570,7 +570,7 @@
           {
               "ingredient": "huile d'olives",
               "quantity": 2,
-              "unit": "cuillère à soupe"
+              "unit": "Cuillère à soupe"
           }
       ],
       "time": 45,
@@ -595,7 +595,7 @@
           {
               "ingredient": "Jus de citron",
               "quantity": 1,
-              "unit":"cuillères à soupe"
+              "unit":"Cuillères à soupe"
           },
           {
               "ingredient": "Glaçons",
@@ -696,7 +696,7 @@
           {
               "ingredient": "huile d'olive",
               "quantity": 1,
-              "unit": "cuillères à soupe"
+              "unit": "Cuillères à soupe"
           }
       ],
       "time": 30,
@@ -736,7 +736,7 @@
           {
               "ingredient": "Crème Fraiche",
               "quantity" : 1,
-              "unit": "cuillères à soupe"
+              "unit": "Cuillères à soupe"
           }
       ],
       "time": 30,
@@ -850,7 +850,7 @@
           {
               "ingredient": "Mayonnaise",
               "quantity": 2,
-              "unit": "cuillères à soupe"
+              "unit": "Cuillères à soupe"
           }
       ],
       "time": 40,
@@ -940,7 +940,7 @@
           {
               "ingredient": "Crème fraîche",
               "quantity": 4,
-              "unit": "cuillère à soupe"
+              "unit": "Cuillère à soupe"
           },
           {
               "ingredient": "Vermicelles",
@@ -1122,7 +1122,7 @@
       "time": 20,
       "description":"Beurrer les tranches de pain, ajouter entre 2 tranches de pain de mie 1 tranche d'émental, une de blanc de dinde, et une autre d'emmental. Dans un récipient, mélanger le gruyère rappé avec le lait et la noix de muscade. Mettre sur les croque monsieux. Placer au four durnat 10 minutes.",
       "appliance": "Four",
-      "ustensils":["râpe à fromage", "cuillère à Soupe", "couteau"]
+      "ustensils":["râpe à fromage", "Cuillère à soupe", "couteau"]
   },
   {
       "id": 33,
@@ -1146,12 +1146,12 @@
           {
               "ingredient": "Fromage blanc",
               "quantity": 4,
-              "unit":"cuillères à soupe"
+              "unit":"Cuillères à soupe"
           },
           {
               "ingredient": "Jus de citron",
               "quantity": 1,
-              "unit": "cuillères à soupe"
+              "unit": "Cuillères à soupe"
           }
       ],
       "time": 5,
@@ -1208,7 +1208,7 @@
           {
               "ingredient": "Crème fraîche",
               "quantity": 2,
-              "unit":"cuillères à soupe"
+              "unit":"Cuillères à soupe"
           },
           {
               "ingredient": "Cumin",
@@ -1257,7 +1257,7 @@
           {
               "ingredient": "Maïzena",
               "quantity": 1,
-              "unit": "cuillères à soupe"
+              "unit": "Cuillères à soupe"
           }
       ],
       "time": 35,
@@ -1333,7 +1333,7 @@
       "time": 20,
       "description":"Fouettez les oeufs, le sucre et le lait. tremper les tranches de pain. Le cuire au four pendant environ 10 minutes à 180°. Servir",
       "appliance": "Four",
-      "ustensils":["fouet", "bol","Cuillère à Soupe"]
+      "ustensils":["fouet", "bol","Cuillère à soupe"]
   },
   {
       "id": 39,
@@ -1679,7 +1679,7 @@
           {
               "ingredient": "Miel",
               "quantity": 2,
-              "unit": "cuillères à soupe"
+              "unit": "Cuillères à soupe"
           }
       ],
       "time": 0,

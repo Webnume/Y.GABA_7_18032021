@@ -5,6 +5,7 @@ export default class SearchMain {
     this.render();
     this.searchDOM = document.querySelector("#search");
     this.searchDOM.oninput = this.handleMainSearch.bind(this);
+    this.activeRecipes = [];
   }
 
   render() {
@@ -18,6 +19,6 @@ export default class SearchMain {
   }
 
   handleMainSearch() {
-    datamanager.search(this.searchDOM.value);
+    datamanager.search(this.searchDOM.value.toString().toLowerCase());
   }
 }

@@ -1,6 +1,6 @@
 import Card from "./card.js";
 import SearchMain from "./searchmain.js";
-import SearchOption from "./searchoption.js";
+import Filter from "./filter.js";
 import DataManager from "./datamanager.js";
 
 async function initPage() {
@@ -10,20 +10,23 @@ async function initPage() {
 
     window.cards = new Card(data);
     window.datamanager = new DataManager(data);
-    const searchmain = new SearchMain(data);
+    window.searchmain = new SearchMain(data);
 
-    new SearchOption(document.querySelector(".option-search"), {
-      name: "Ingredients",
-      recipes: data,
-    });
-    new SearchOption(document.querySelector(".option-search"), {
-      name: "Appareil",
-      recipes: data,
-    });
-    new SearchOption(document.querySelector(".option-search"), {
-      name: "Ustensiles",
-      recipes: data,
-    });
+    window.ingredientFilter = new Filter({
+        name: "Ingredients",
+        recipes: data,
+      }
+    );
+    window.appareilFilter = new Filter({
+        name: "Appareil",
+        recipes: data,
+      }
+    );
+    window.ustensilesFilter = new Filter({
+        name: "Ustensiles",
+        recipes: data,
+      }
+    );
   } catch (err) {
     console.error("Une erreur est survenue", err);
   }

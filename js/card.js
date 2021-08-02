@@ -10,8 +10,12 @@ export default class Card {
   }
 
   update(newListRecipes) {
-    this.recipes = newListRecipes;
-    this.render();
+    if(newListRecipes!==undefined){
+      this.recipes = newListRecipes;
+      this.render();
+    }else{
+      this.DOM.innerHTML = this.templateMainNoResult();
+    }
   }
 
   templateMain() {
@@ -34,6 +38,17 @@ export default class Card {
       </div>
         `;
     }
+    return cardDOM;
+  }
+
+  templateMainNoResult() {
+    let cardDOM = `  
+      <div class="noresult">
+      Aucune recette ne correspond à votre critère… vous pouvez
+      chercher « tarte aux pommes », « poisson », etc.
+      
+      </div>
+        `;
     return cardDOM;
   }
 

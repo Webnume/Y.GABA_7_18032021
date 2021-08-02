@@ -211,6 +211,10 @@ main {
   justify-content: center;
   position: absolute;
   top: 38%;
+  & .noresult{
+    width: 60%;
+    margin: 0 auto;
+  }
   & .recipe {
     display: flex;
     flex-direction: column;
