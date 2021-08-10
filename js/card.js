@@ -10,10 +10,10 @@ export default class Card {
   }
 
   update(newListRecipes) {
-    if(newListRecipes!==undefined){
+    if (newListRecipes !== undefined) {
       this.recipes = newListRecipes;
       this.render();
-    }else{
+    } else {
       this.DOM.innerHTML = this.templateMainNoResult();
     }
   }

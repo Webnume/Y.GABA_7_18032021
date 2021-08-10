@@ -2,7 +2,7 @@ export default class Filter {
   constructor(props) {
     this.name = props.name;
     this.recipes = props.recipes;
-    this.activeRecipes =  [] ;
+    this.activeRecipes = [];
 
     this.DOM = document.createElement("article");
     this.DOM.innerHTML = this.template();
@@ -16,22 +16,30 @@ export default class Filter {
     );
     this.DOM.oninput = this.handleFilterInput.bind(this);
     this.DOMdetails = document.createElement("ul");
-    this.DOMdetails.id=this.name;
+    this.DOMdetails.id = this.name;
     this.DOM.appendChild(this.DOMdetails);
   }
 
   handleFilterInput() {
-    this.inputValue=document.querySelector(".box."+this.name+" .topBox :first-child").value;
-    this.activeRecipes = datamanager.getFiltersData(this.name, this.inputValue.toString().toLowerCase());
+    this.inputValue = document.querySelector(
+      ".box." + this.name + " .topBox :first-child"
+    ).value;
+    this.activeRecipes = datamanager.getFiltersData(
+      this.name,
+      this.inputValue.toString().toLowerCase()
+    );
     this.details = true;
     this.render();
   }
 
   click() {
     for (const key of Object.keys(selectMenus)) {
-      if (key !== this.name.toLowerCase()) selectMenus[key].unExpand();    }
+      if (key !== this.name.toLowerCase()) selectMenus[key].unExpand();
+    }
     this.details = !this.details;
-    this.activeRecipes = this.details ? datamanager.getFiltersData(this.name) : [];
+    this.activeRecipes = this.details
+      ? datamanager.getFiltersData(this.name)
+      : [];
     this.render();
     this.setFocusToTextBox(this.name);
 
@@ -48,19 +56,18 @@ export default class Filter {
 
   render(tab) {
     let html = "";
-    if (typeof tab !=="undefined") this.activeRecipes=tab;
-    if(this.details) {
+    if (typeof tab !== "undefined") this.activeRecipes = tab;
+    if (this.details) {
       this.DOM.classList.add("expand");
       for (var i = 0; i < this.activeRecipes.length; i++) {
-        html += `<li onclick="selectMenus.${this.name.toLowerCase()}.select('${
-          this.activeRecipes[i]
-        }')">${this.activeRecipes[i]}</li>`;
+        html += `<li onclick="selectMenus.${this.name.toLowerCase()}.select('${this.activeRecipes[
+          i
+        ].replace(/'/g, "\\'")}')">${this.activeRecipes[i]}</li>`;
       }
-      this.DOMdetails.innerHTML= html;
-    }
-    else{
+      this.DOMdetails.innerHTML = html;
+    } else {
       this.DOM.classList.remove("expand");
-      this.DOMdetails.innerHTML= "";
+      this.DOMdetails.innerHTML = "";
     }
   }
 
@@ -71,29 +78,37 @@ export default class Filter {
 
   select(elementName) {
     // event.preventDefault();
+    elementName=elementName.toLowerCase();
     event.stopPropagation();
-    this.selectedFilterDOM(elementName);
+    // if (
+    //   // !activeFilters.ingredients.includes(elementName) &&
+    //   // !activeFilters.appliance.includes(elementName) &&
+    //   // !activeFilters.ustensils.includes(elementName)
+    // )
+     {
+      this.selectedFilterDOM(elementName);
+    }
     this.unExpand();
   }
 
   selectedFilterDOM(elementName) {
-    if (!allSelectedFilters.includes(elementName)) {
-      allSelectedFilters.push(elementName);
-      this.filtersSelectedDOM.innerHTML += `<div class="content ${
-        this.name
-      }" onclick="selectMenus.${this.name.toLowerCase()}.removeselectedFilterDOM('${elementName}')">${elementName}</div>`;
-    }
-    console.log(allSelectedFilters );
-    datamanager.search(elementName);
+    this.filtersSelectedDOM.innerHTML += `<div class="content ${
+      this.name
+    }" onclick="selectMenus.${this.name.toLowerCase()}.removeselectedFilter('${elementName.replace(
+      /'/g,
+      "\\'"
+    )}')">${elementName}</div>`;
 
+    datamanager.activeFiltersToObject(this.name, elementName);
   }
 
-  removeselectedFilterDOM(elementName) {
-    const index = allSelectedFilters.indexOf(elementName);
-    if (index > -1) {
-      allSelectedFilters.splice(index, 1);
-      event.currentTarget.remove();
-    }
+  removeselectedFilter(elementName) {
+  //   const index = allSelectedFilters.indexOf(elementName);
+  //   if (index > -1) {
+  //     allSelectedFilters.splice(index, 1);
+  //     event.currentTarget.remove();
+  //   }
+    datamanager.removeselectedFilter(elementName);
   }
 
   setFocusToTextBox(id) {
