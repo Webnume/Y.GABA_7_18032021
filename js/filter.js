@@ -27,12 +27,13 @@ export default class Filter {
     this.inputValue = document.querySelector(
       ".box." + this.name + " .topBox :first-child"
     ).value;
+    if(this.inputValue.length>3 || this.inputValue.length === 0){
     this.activeRecipes = datamanager.getFiltersData(
       this.name,
       this.inputValue.toString().toLowerCase()
     );
     this.details = true;
-    this.render();
+    this.render();}
   }
 
   click() {
@@ -87,14 +88,17 @@ export default class Filter {
   }
 
   selectedFilterDOM(elementName) {
+    const appareilDOM = document.querySelector(
+      "body > header > section.selected-filters > div.content.Appareil"
+    );
     const li = `<div class="content ${
       this.name
     }" onclick="selectMenus.${this.name.toLowerCase()}.removeselectedFilter('${elementName.replace(
       /'/g,
       "\\'"
     )}')">${elementName}</div>`;
-    if (this.name === "Appareil") {
-      this.filtersSelectedDOM.innerHTML = li;
+    if (this.name === "Appareil" && appareilDOM !== null) {
+      appareilDOM.outerHTML = li;
     } else {
       this.filtersSelectedDOM.innerHTML += li;
     }

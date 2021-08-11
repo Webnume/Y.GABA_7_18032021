@@ -19,6 +19,8 @@ export default class SearchMain {
   }
 
   handleMainSearch() {
-    datamanager.search(this.searchDOM.value.toString().toLowerCase());
+    if (this.searchDOM.value.length > 3 || this.searchDOM.value.length ===0) {
+      datamanager.search(this.searchDOM.value.toString().toLowerCase());
+    }
   }
 }

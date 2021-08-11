@@ -4,6 +4,7 @@ export default class DataManager {
     this.allRecipesSafe = data;
     activeFilters.ustensils = [];
     activeFilters.ingredients = [];
+    activeFilters.mainSearchInput = "";
     this.globalSearch = [];
     // console.log(this.filtered({appliance:"four",ustensils: [ 'rouleau à patisserie']}));
   }
@@ -16,29 +17,9 @@ export default class DataManager {
    * @return  {object}        [return array of selected recipes]
    */
   search(text) {
-    const searchStr = text.toLowerCase();
-    //on appelle notre méthode de tri
-    const filteredData = this.recipes.filter((recipe) => {
-      const nameMatches = recipe.name.toLowerCase().includes(searchStr);
-      const descriptionMatches = recipe.description
-        .toString()
-        .includes(searchStr);
-      const ingredientMatches = recipe.ingredients.some((item) => {
-        return item.ingredient.toString().toLowerCase().includes(searchStr);
-      });
-
-      return nameMatches || descriptionMatches || ingredientMatches;
-    });
-
-    // console.log(filteredData);
-
-    if (filteredData.length > 0) {
-      cards.update(filteredData);
-      // this.recipes = filteredData;
-      // this.globalSearch = filteredData;
-    } else {
-      cards.update();
-    }
+    activeFilters.mainSearchInput = text.toLowerCase();
+    datamanager.filtered(activeFilters);
+    console.log(activeFilters);
   }
 
   /**
@@ -51,23 +32,23 @@ export default class DataManager {
    * @return  {Array}        [renvoi un tabeau]
    */
   getFiltersData(type, text) {
+    const activeRecipes = this.filtered(activeFilters);
     if (type === "Ingredients") {
       const ingredients = [];
-      for (var i = 0; i < this.recipes.length; i++) {
-        for (let j = 0; j < this.recipes[i].ingredients.length; j++) {
+      for (var i = 0; i < activeRecipes.length; i++) {
+        for (let j = 0; j < activeRecipes[i].ingredients.length; j++) {
           if (
-            ingredients.indexOf(this.recipes[i].ingredients[j].ingredient) ===
+            ingredients.indexOf(activeRecipes[i].ingredients[j].ingredient) ===
               -1 &&
             !activeFilters.ingredients.includes(
-              this.recipes[i].ingredients[j].ingredient.toLowerCase()
+              activeRecipes[i].ingredients[j].ingredient.toLowerCase()
             )
           ) {
-            ingredients.push(this.recipes[i].ingredients[j].ingredient);
+            ingredients.push(activeRecipes[i].ingredients[j].ingredient);
           }
         }
       }
       if (text) {
-        // console.log(text);
         let inputIngredientResult = [];
         inputIngredientResult = ingredients.filter((ingredient) =>
           ingredient.toString().toLowerCase().includes(text)
@@ -78,12 +59,12 @@ export default class DataManager {
     }
     if (type === "Appareil") {
       const appliances = [];
-      for (var i = 0; i < this.recipes.length; i++) {
+      for (var i = 0; i < activeRecipes.length; i++) {
         if (
-          appliances.indexOf(this.recipes[i].appliance) === -1 &&
-          activeFilters.appliance !== this.recipes[i].appliance.toLowerCase()
+          appliances.indexOf(activeRecipes[i].appliance) === -1 &&
+          activeFilters.appliance !== activeRecipes[i].appliance.toLowerCase()
         ) {
-          appliances.push(this.recipes[i].appliance);
+          appliances.push(activeRecipes[i].appliance);
         }
       }
       if (text) {
@@ -97,15 +78,15 @@ export default class DataManager {
     }
     if (type === "Ustensiles") {
       const ustensiles = [];
-      for (var i = 0; i < this.recipes.length; i++) {
-        for (let j = 0; j < this.recipes[i].ustensils.length; j++) {
+      for (var i = 0; i < activeRecipes.length; i++) {
+        for (let j = 0; j < activeRecipes[i].ustensils.length; j++) {
           if (
-            ustensiles.indexOf(this.recipes[i].ustensils[j]) === -1 &&
+            ustensiles.indexOf(activeRecipes[i].ustensils[j]) === -1 &&
             !activeFilters.ustensils.includes(
-              this.recipes[i].ustensils[j].toLowerCase()
+              activeRecipes[i].ustensils[j].toLowerCase()
             )
           ) {
-            ustensiles.push(this.recipes[i].ustensils[j]);
+            ustensiles.push(activeRecipes[i].ustensils[j]);
           }
         }
       }
@@ -139,7 +120,6 @@ export default class DataManager {
     const indexIngredients = activeFilters.ingredients.indexOf(elementName);
     if (activeFilters.appliance === elementName) {
       delete activeFilters.appliance;
-      this.search("coco");
     }
     const indexUstensils = activeFilters.ustensils.indexOf(elementName);
     if (indexUstensils > -1) {
@@ -167,6 +147,25 @@ export default class DataManager {
     let sum;
     for (const value of Object.values(this.recipes)) {
       sum = 0;
+
+      if (filters.mainSearchInput !== undefined) {
+        if (
+          this.filterMainSearch(
+            value.name.toLowerCase(),
+            filters.mainSearchInput
+          ) ||
+          this.filterMainSearch(
+            value.description.toLowerCase(),
+            filters.mainSearchInput
+          ) ||
+          this.filterMainSearchIngredients(
+            value.ingredients,
+            filters.mainSearchInput
+          )
+        )
+          sum++;
+      }
+
       if (filters.appliance !== undefined) {
         if (
           this.filterAppliance(value.appliance.toLowerCase(), filters.appliance)
@@ -183,7 +182,22 @@ export default class DataManager {
       if (sum === Object.entries(filters).length) result.push(value);
     }
     cards.update(result);
+    // console.log(result);
+    if (result.length === 0) cards.update();
     return result;
+  }
+
+  filterMainSearch(value, filter) {
+    value = value.toLowerCase();
+    if (value.includes(filter)) return true;
+    return false;
+  }
+
+  filterMainSearchIngredients(value, filter) {
+    for (let i = value.length - 1; i >= 0; i--) {
+      if (value[i].ingredient.toLowerCase().includes(filter)) return true;
+    }
+    return false;
   }
 
   /**
