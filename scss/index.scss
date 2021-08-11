@@ -106,6 +106,9 @@ header {
     width: 100%;
     justify-content: flex-start;
     margin: 1rem 0;
+    @media(max-width: 765px){
+      flex-direction: column;
+    };
     & .box {
       display: flex;
       flex-direction: column;
@@ -119,11 +122,17 @@ header {
       cursor: pointer;
       border-radius: 5px;
       position: relative;
+      @media(max-width: 765px){
+        width: 100%;
+      };
       &.expand {
         width: 70%;
         height: fit-content;
         padding-top: 1.7em;
         cursor: unset;
+        @media(max-width: 765px){
+          width: 100%;
+        };
         & li {
           cursor: pointer;
           line-height: 2em;
@@ -211,6 +220,9 @@ main {
   justify-content: center;
   position: absolute;
   top: 38%;
+  @media(max-width: 765px){
+    top: 50%;
+  };
   & .noresult{
     width: 60%;
     margin: 0 auto;

@@ -18,6 +18,9 @@ export default class Filter {
     this.DOMdetails = document.createElement("ul");
     this.DOMdetails.id = this.name;
     this.DOM.appendChild(this.DOMdetails);
+    this.inputValue = document.querySelector(
+      ".box." + this.name + " .topBox :first-child"
+    ).value;
   }
 
   handleFilterInput() {
@@ -38,14 +41,13 @@ export default class Filter {
     }
     this.details = !this.details;
     this.activeRecipes = this.details
-      ? datamanager.getFiltersData(this.name)
+      ? datamanager.getFiltersData(
+          this.name,
+          this.inputValue.toString().toLowerCase()
+        )
       : [];
     this.render();
     this.setFocusToTextBox(this.name);
-
-    // const searchStr=document.querySelector("#search").value.toString().toLowerCase();
-    // this.UpdateLists = datamanager.getFiltersData(this.name, searchStr);
-    // this.render(this.UpdateLists);
   }
 
   template() {
@@ -54,9 +56,8 @@ export default class Filter {
         `;
   }
 
-  render(tab) {
+  render() {
     let html = "";
-    if (typeof tab !== "undefined") this.activeRecipes = tab;
     if (this.details) {
       this.DOM.classList.add("expand");
       for (var i = 0; i < this.activeRecipes.length; i++) {
@@ -78,36 +79,30 @@ export default class Filter {
 
   select(elementName) {
     // event.preventDefault();
-    elementName=elementName.toLowerCase();
+    elementName = elementName.toLowerCase();
     event.stopPropagation();
-    // if (
-    //   // !activeFilters.ingredients.includes(elementName) &&
-    //   // !activeFilters.appliance.includes(elementName) &&
-    //   // !activeFilters.ustensils.includes(elementName)
-    // )
-     {
-      this.selectedFilterDOM(elementName);
-    }
+    this.selectedFilterDOM(elementName);
+    datamanager.getFiltersData(this.name, elementName);
     this.unExpand();
   }
 
   selectedFilterDOM(elementName) {
-    this.filtersSelectedDOM.innerHTML += `<div class="content ${
+    const li = `<div class="content ${
       this.name
     }" onclick="selectMenus.${this.name.toLowerCase()}.removeselectedFilter('${elementName.replace(
       /'/g,
       "\\'"
     )}')">${elementName}</div>`;
+    if (this.name === "Appareil") {
+      this.filtersSelectedDOM.innerHTML = li;
+    } else {
+      this.filtersSelectedDOM.innerHTML += li;
+    }
 
     datamanager.activeFiltersToObject(this.name, elementName);
   }
 
   removeselectedFilter(elementName) {
-  //   const index = allSelectedFilters.indexOf(elementName);
-  //   if (index > -1) {
-  //     allSelectedFilters.splice(index, 1);
-  //     event.currentTarget.remove();
-  //   }
     datamanager.removeselectedFilter(elementName);
   }
 

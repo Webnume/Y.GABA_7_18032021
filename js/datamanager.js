@@ -4,7 +4,7 @@ export default class DataManager {
     this.allRecipesSafe = data;
     activeFilters.ustensils = [];
     activeFilters.ingredients = [];
-    // this.globalSearch = [];
+    this.globalSearch = [];
     // console.log(this.filtered({appliance:"four",ustensils: [ 'rouleau à patisserie']}));
   }
 
@@ -41,31 +41,6 @@ export default class DataManager {
     }
   }
 
-  // advancedFilterSearch(tab) {
-  //   console.log(tab);
-  //   if (tab.length > 0) {
-  //     for (let i = 0; i < tab.length; i++) {
-  //       var advancedFilterData = this.allRecipesSafe.filter((recipe) => {
-  //         const element = tab[i].toLowerCase();
-  //         const ingredients = recipe.ingredients.some((item) => {
-  //           return item.ingredient.toString().toLowerCase().includes(element);
-  //         });
-  //         const appliance = recipe.appliance.toLowerCase().includes(element);
-  //         const ustensils = recipe.ustensils.some((ustensil) => {
-  //           return ustensil.toLowerCase().includes(element);
-  //         });
-  //         return ingredients || appliance || ustensils;
-  //       });
-  //     }
-  //     this.recipes = advancedFilterData;
-  //     cards.update(this.recipes);
-  //     // searchmain.handleMainSearch();
-  //   } else {
-  //       this.recipes = this.globalSearch ? this.globalSearch :  this.allRecipesSafe;
-  //       cards.update(this.recipes);
-  //   }
-  // }
-
   /**
    * [getData description]
    *
@@ -82,7 +57,10 @@ export default class DataManager {
         for (let j = 0; j < this.recipes[i].ingredients.length; j++) {
           if (
             ingredients.indexOf(this.recipes[i].ingredients[j].ingredient) ===
-            -1
+              -1 &&
+            !activeFilters.ingredients.includes(
+              this.recipes[i].ingredients[j].ingredient.toLowerCase()
+            )
           ) {
             ingredients.push(this.recipes[i].ingredients[j].ingredient);
           }
@@ -101,7 +79,10 @@ export default class DataManager {
     if (type === "Appareil") {
       const appliances = [];
       for (var i = 0; i < this.recipes.length; i++) {
-        if (appliances.indexOf(this.recipes[i].appliance) === -1) {
+        if (
+          appliances.indexOf(this.recipes[i].appliance) === -1 &&
+          activeFilters.appliance !== this.recipes[i].appliance.toLowerCase()
+        ) {
           appliances.push(this.recipes[i].appliance);
         }
       }
@@ -110,7 +91,6 @@ export default class DataManager {
         inputAppareilResult = appliances.filter((appliance) =>
           appliance.toString().toLowerCase().includes(text)
         );
-        console.log(inputAppareilResult);
         return inputAppareilResult;
       }
       return appliances;
@@ -119,7 +99,12 @@ export default class DataManager {
       const ustensiles = [];
       for (var i = 0; i < this.recipes.length; i++) {
         for (let j = 0; j < this.recipes[i].ustensils.length; j++) {
-          if (ustensiles.indexOf(this.recipes[i].ustensils[j]) === -1) {
+          if (
+            ustensiles.indexOf(this.recipes[i].ustensils[j]) === -1 &&
+            !activeFilters.ustensils.includes(
+              this.recipes[i].ustensils[j].toLowerCase()
+            )
+          ) {
             ustensiles.push(this.recipes[i].ustensils[j]);
           }
         }
@@ -129,7 +114,6 @@ export default class DataManager {
         inputUstensilesResult = ustensiles.filter((ustensile) =>
           ustensile.toString().toLowerCase().includes(text)
         );
-        console.log(inputUstensilesResult);
         return inputUstensilesResult;
       }
       return ustensiles;
@@ -147,32 +131,26 @@ export default class DataManager {
     if (dropdownName === "Ustensiles") {
       activeFilters.ustensils.push(elementName);
     }
-    // console.log(allSelectedFilters );
     this.filtered(activeFilters);
     console.log(activeFilters);
   }
 
   removeselectedFilter(elementName) {
-    // const indexIngredients = activeFilters.ingredients.indexOf(elementName);
-    // const indexAppliance = activeFilters.appliance.includes(elementName);
+    const indexIngredients = activeFilters.ingredients.indexOf(elementName);
     if (activeFilters.appliance === elementName) {
       delete activeFilters.appliance;
+      this.search("coco");
     }
     const indexUstensils = activeFilters.ustensils.indexOf(elementName);
-    console.log(activeFilters.ustensils, elementName);
     if (indexUstensils > -1) {
       activeFilters.ustensils.splice(indexUstensils, 1);
     }
-    // if (activeFilters.ustensils.length===0){delete activeFilters.ustensils;}
-    // if (indexIngredients > -1) {
-    //   activeFilters.ingredients.splice(indexIngredients, 1);
-    //   event.currentTarget.remove();
-    // }    else
+    if (indexIngredients > -1) {
+      activeFilters.ingredients.splice(indexIngredients, 1);
+    }
     event.currentTarget.remove();
     this.filtered(activeFilters);
     console.log(activeFilters);
-    // console.log(event.currentTarget);
-    // console.log(activeFilters);
   }
   /**
    * [filtered description]
@@ -185,7 +163,6 @@ export default class DataManager {
    * @return  {Array}           [return description]
    */
   filtered(filters) {
-    console.log(filters);
     const result = [];
     let sum;
     for (const value of Object.values(this.recipes)) {
@@ -195,7 +172,6 @@ export default class DataManager {
           this.filterAppliance(value.appliance.toLowerCase(), filters.appliance)
         )
           sum++;
-        // console.log(sum, value.appliance.toLowerCase(), filters.appliance);
       }
       if (filters.ingredients !== undefined) {
         if (this.filterIngredients(value.ingredients, filters.ingredients))
@@ -205,8 +181,6 @@ export default class DataManager {
         if (this.filterUstensils(value.ustensils, filters.ustensils)) sum++;
       }
       if (sum === Object.entries(filters).length) result.push(value);
-      // console.log(sum, filters.appliance, value.appliance);
-      console.log(Object.entries(filters).length, sum, result);
     }
     cards.update(result);
     return result;
@@ -221,19 +195,16 @@ export default class DataManager {
    * @return  {Boolean}           [return description]
    */
   filterAppliance(value, filter) {
-    // console.log(value, filter);
     value = value.toLowerCase();
-
     if (value === filter) return true;
     return false;
   }
 
   filterIngredients(value, filters) {
     let sum = 0;
-    // console.log(value, filters);
     for (let i = filters.length - 1; i >= 0; i--) {
       for (let ii = value.length - 1; ii >= 0; ii--) {
-        if (value[ii].ingredient === filters[i]) sum++;
+        if (value[ii].ingredient.toLowerCase() === filters[i]) sum++;
       }
     }
     if (sum === filters.length) return true;
@@ -250,6 +221,7 @@ export default class DataManager {
    */
   filterUstensils(value, filters) {
     let sum = 0;
+    value = value.map((val) => val.toLowerCase());
     for (let i = filters.length - 1; i >= 0; i--) {
       if (value.indexOf(filters[i]) >= 0) sum++;
     }

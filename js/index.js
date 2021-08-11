@@ -13,20 +13,17 @@ async function initPage() {
     window.searchmain = new SearchMain(data);
 
     window.ingredientFilter = new Filter({
-        name: "Ingredients",
-        recipes: data,
-      }
-    );
+      name: "Ingredients",
+      recipes: data,
+    });
     window.appareilFilter = new Filter({
-        name: "Appareil",
-        recipes: data,
-      }
-    );
+      name: "Appareil",
+      recipes: data,
+    });
     window.ustensilesFilter = new Filter({
-        name: "Ustensiles",
-        recipes: data,
-      }
-    );
+      name: "Ustensiles",
+      recipes: data,
+    });
   } catch (err) {
     console.error("Une erreur est survenue", err);
   }

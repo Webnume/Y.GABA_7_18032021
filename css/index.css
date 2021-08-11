@@ -92,6 +92,11 @@ header .option-search {
   justify-content: flex-start;
   margin: 1rem 0;
 }
+@media (max-width: 765px) {
+  header .option-search {
+    flex-direction: column;
+  }
+}
 header .option-search .box {
   display: flex;
   flex-direction: column;
@@ -106,11 +111,21 @@ header .option-search .box {
   border-radius: 5px;
   position: relative;
 }
+@media (max-width: 765px) {
+  header .option-search .box {
+    width: 100%;
+  }
+}
 header .option-search .box.expand {
   width: 70%;
   height: fit-content;
   padding-top: 1.7em;
   cursor: unset;
+}
+@media (max-width: 765px) {
+  header .option-search .box.expand {
+    width: 100%;
+  }
 }
 header .option-search .box.expand li {
   cursor: pointer;
@@ -181,6 +196,11 @@ main {
   justify-content: center;
   position: absolute;
   top: 38%;
+}
+@media (max-width: 765px) {
+  main {
+    top: 50%;
+  }
 }
 main .noresult {
   width: 60%;
