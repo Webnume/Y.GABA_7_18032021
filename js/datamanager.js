@@ -6,7 +6,6 @@ export default class DataManager {
     activeFilters.ingredients = [];
     activeFilters.mainSearchInput = "";
     this.globalSearch = [];
-    // console.log(this.filtered({appliance:"four",ustensils: [ 'rouleau à patisserie']}));
   }
 
   /**
@@ -18,7 +17,7 @@ export default class DataManager {
    */
   search(text) {
     activeFilters.mainSearchInput = text.toLowerCase();
-    datamanager.filtered(activeFilters);
+    this.filtered(activeFilters);
     console.log(activeFilters);
   }
 
@@ -132,6 +131,7 @@ export default class DataManager {
     this.filtered(activeFilters);
     console.log(activeFilters);
   }
+
   /**
    * [filtered description]
    *
@@ -147,7 +147,6 @@ export default class DataManager {
     let sum;
     for (const value of Object.values(this.recipes)) {
       sum = 0;
-
       if (filters.mainSearchInput !== undefined) {
         if (
           this.filterMainSearch(
@@ -182,7 +181,6 @@ export default class DataManager {
       if (sum === Object.entries(filters).length) result.push(value);
     }
     cards.update(result);
-    // console.log(result);
     if (result.length === 0) cards.update();
     return result;
   }

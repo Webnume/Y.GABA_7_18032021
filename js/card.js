@@ -22,7 +22,7 @@ export default class Card {
     let cardDOM = "";
     for (let i = 0; i < this.recipes.length; i++) {
       cardDOM += `  
-      <div class="recipe">
+      <article class="recipe">
           <img src="https://picsum.photos/380/178" alt="">
           <div class="recipe-headings">
               <h2 class="recipe-title">${this.recipes[i].name}</h2>
@@ -35,7 +35,7 @@ export default class Card {
               </ul>
               <p class="description">${this.recipes[i].description}</p>  
           </div>
-      </div>
+      </article>
         `;
     }
     return cardDOM;
