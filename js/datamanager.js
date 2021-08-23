@@ -5,7 +5,43 @@ export default class DataManager {
     activeFilters.ustensils = [];
     activeFilters.ingredients = [];
     activeFilters.mainSearchInput = "";
-    this.globalSearch = [];
+    this.recipesById = {};
+    this.hashedRecipes = {};
+    this.activeRecipes = [];
+    window.onload = this.generate.bind(this);
+  }
+
+  generate() {
+    this.setFocusToTextBox("search");
+    this.recipes.forEach((recipe) => {
+      this.recipesById["id_" + recipe.id] = recipe;
+      this.fillHashedRecipes(recipe.name.toLowerCase(), recipe.id);
+      // console.log(this.fillHashedRecipes(recipe.name.toLowerCase(), recipe.id));
+      this.fillHashedRecipes(recipe.appliance.toLowerCase(), recipe.id);
+      recipe.ustensils.forEach((ustensil) => {
+        this.fillHashedRecipes(ustensil.toLowerCase(), recipe.id);
+      });
+
+      recipe.ingredients.forEach((ingredient) => {
+        // console.log(ingredient.ingredient);
+        this.fillHashedRecipes(ingredient.ingredient.toLowerCase(), recipe.id);
+      });
+    });
+    // console.log(this.recipesById.id_41);
+    // console.log(this.recipesById);
+  }
+
+  fillHashedRecipes(name, id) {
+    let tmp;
+    for (let i = 3; i <= name.length; i++) {
+      tmp = name.slice(0, i);
+      if (this.hashedRecipes[tmp] === undefined) {
+        this.hashedRecipes[tmp] = [];
+      }
+      if (this.hashedRecipes[tmp].indexOf(id) > -1) continue;
+      this.hashedRecipes[tmp].push(id);
+    }
+    // console.log(this.hashedRecipes["fou"]);
   }
 
   /**
@@ -16,9 +52,32 @@ export default class DataManager {
    * @return  {object}        [return array of selected recipes]
    */
   search(text) {
-    activeFilters.mainSearchInput = text.toLowerCase();
-    this.filtered(activeFilters);
-    console.log(activeFilters);
+    this.activeRecipes = [];
+    console.log(this.hashedRecipes);
+    // console.log(this.hashedRecipes["coco"]);
+    const hashedID = this.hashedRecipes[text.toLowerCase()];
+    console.log(hashedID);
+    if (hashedID !== undefined) {
+      for (let i = 0; i < hashedID.length; i++) {
+        // console.log(this.recipesById["id_"+hashedID[i]]);
+        if (
+          this.activeRecipes.indexOf(this.recipesById["id_" + hashedID[i]]) > -1
+        )
+          continue;
+        this.activeRecipes.push(this.recipesById["id_" + hashedID[i]]);
+      }
+      console.log(this.activeRecipes);
+      cards.update(this.activeRecipes);
+    }
+    if (hashedID === undefined && text === "") {
+      cards.update(this.recipes);
+    }
+    if (hashedID === undefined && text !== "") {
+      cards.update();
+    }
+
+    // this.filtered(activeFilters);
+    // console.log(activeFilters);
   }
 
   /**
@@ -31,7 +90,8 @@ export default class DataManager {
    * @return  {Array}        [renvoi un tabeau]
    */
   getFiltersData(type, text) {
-    const activeRecipes = this.filtered(activeFilters);
+    let activeRecipes = this.recipes;
+    if (this.activeRecipes.length > 0) activeRecipes = this.activeRecipes;
     if (type === "Ingredients") {
       const ingredients = [];
       for (var i = 0; i < activeRecipes.length; i++) {
@@ -145,7 +205,10 @@ export default class DataManager {
   filtered(filters) {
     const result = [];
     let sum;
-    for (const value of Object.values(this.recipes)) {
+    let recipes;
+    if (this.activeRecipes.length>0) recipes = this.activeRecipes
+    else recipes = this.recipes;
+    for (const value of Object.values(recipes)) {
       sum = 0;
       if (filters.mainSearchInput !== undefined) {
         if (
@@ -239,5 +302,9 @@ export default class DataManager {
     }
     if (sum === filters.length) return true;
     return false;
+  }
+
+  setFocusToTextBox(id) {
+    document.getElementById(id).focus();
   }
 }

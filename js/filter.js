@@ -48,7 +48,7 @@ export default class Filter {
         )
       : [];
     this.render();
-    this.setFocusToTextBox(this.name);
+    datamanager.setFocusToTextBox(this.name);
   }
 
   template() {
@@ -110,7 +110,4 @@ export default class Filter {
     datamanager.removeselectedFilter(elementName);
   }
 
-  setFocusToTextBox(id) {
-    document.getElementById(id).focus();
-  }
 }
