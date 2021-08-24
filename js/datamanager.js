@@ -3,10 +3,11 @@ export default class DataManager {
     this.recipes = data;
     activeFilters.ustensils = [];
     activeFilters.ingredients = [];
-    activeFilters.appliance ;
+    activeFilters.appliance;
     this.recipesById = {};
     this.hashedRecipes = {};
     this.activeRecipes = [];
+    this.result = [];
     window.onload = this.generate.bind(this);
   }
 
@@ -79,6 +80,9 @@ export default class DataManager {
     }
     if (mergedAllActiveID.length === 0 && text === "") {
       cards.update(this.recipes);
+      if (this.result.length > 0) {
+        cards.update(this.result);
+      }
     }
     if (mergedAllActiveID.length === 0 && text !== "") {
       cards.update();
@@ -97,7 +101,8 @@ export default class DataManager {
   getFiltersData(type, text) {
     let activeRecipes = this.recipes;
     if (this.activeRecipes.length > 0) activeRecipes = this.activeRecipes;
-    if(this.filtered(activeFilters).length > 0)  activeRecipes = this.filtered(activeFilters);
+    if (this.filtered(activeFilters).length > 0)
+      activeRecipes = this.filtered(activeFilters);
     if (type === "Ingredients") {
       const ingredients = [];
       for (var i = 0; i < activeRecipes.length; i++) {
@@ -233,6 +238,7 @@ export default class DataManager {
       if (sum === Object.entries(filters).length) result.push(value);
       console.log(sum, Object.entries(filters).length);
     }
+    this.result = result;
     cards.update(result);
     console.log(result);
     return result;
