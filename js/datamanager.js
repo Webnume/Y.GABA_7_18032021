@@ -23,7 +23,6 @@ export default class DataManager {
         this.fillHashedRecipes(element.ingredient.toLowerCase(), recipe.id);
       });
     });
-    // console.log(this.recipesById.id_41);
     console.log(this.recipesById);
   }
 
@@ -37,8 +36,6 @@ export default class DataManager {
       if (this.hashedRecipes[tmp].indexOf(id) > -1) continue;
       this.hashedRecipes[tmp].push(id);
     }
-    // console.log(this.hashedRecipes["coco"]);
-    // console.log(this.hashedRecipes);
   }
 
   /**
@@ -51,10 +48,8 @@ export default class DataManager {
   search(text) {
     this.activeRecipes = [];
     console.log(this.hashedRecipes);
-    // console.log(this.hashedRecipes["coco"].inclu);
     let allActiveID = [];
     for (const [key, value] of Object.entries(this.hashedRecipes)) {
-      // if (key !== this.name.toLowerCase()) selectMenus[key].unExpand();
       if (
         text !== "" &&
         key.toLowerCase().includes(text.toLowerCase()) &&
@@ -69,11 +64,8 @@ export default class DataManager {
     let tmpMergedAllActiveID = allActiveID.reduce((a, b) => a.concat(b), []);
     let mergedAllActiveID = Array.from(new Set(tmpMergedAllActiveID));
     console.log(mergedAllActiveID);
-    // const hashedID = this.hashedRecipes[text.toLowerCase()];
-    // console.log(hashedID);
     if (mergedAllActiveID !== undefined) {
       for (let i = 0; i < mergedAllActiveID.length; i++) {
-        // console.log(this.recipesById["id_"+mergedAllActiveID[i]]);
         if (
           this.activeRecipes.indexOf(
             this.recipesById["id_" + mergedAllActiveID[i]]
@@ -91,9 +83,6 @@ export default class DataManager {
     if (mergedAllActiveID.length === 0 && text !== "") {
       cards.update();
     }
-
-    // this.filtered(activeFilters);
-    // console.log(activeFilters);
   }
 
   /**
@@ -108,6 +97,7 @@ export default class DataManager {
   getFiltersData(type, text) {
     let activeRecipes = this.recipes;
     if (this.activeRecipes.length > 0) activeRecipes = this.activeRecipes;
+    if(this.filtered(activeFilters).length > 0)  activeRecipes = this.filtered(activeFilters);
     if (type === "Ingredients") {
       const ingredients = [];
       for (var i = 0; i < activeRecipes.length; i++) {
@@ -222,7 +212,7 @@ export default class DataManager {
     const result = [];
     let sum;
     let recipes;
-    if (this.activeRecipes.length > 0) recipes = this.recipes;
+    if (this.activeRecipes.length > 0) recipes = this.activeRecipes;
     else recipes = this.recipes;
     for (const value of Object.values(recipes)) {
       sum = 0;
@@ -243,21 +233,6 @@ export default class DataManager {
       if (sum === Object.entries(filters).length) result.push(value);
       console.log(sum, Object.entries(filters).length);
     }
-    // if (
-    //   filters.appliance === "" &&
-    //   filters.ingredients.length === 0 &&
-    //   filters.ustensils.length === 0
-    // ) {
-    //   cards.update(result);
-    // } else if (
-    //   filters.appliance !== "" ||
-    //   filters.ingredients.length > 0 ||
-    //   filters.ustensils.length > 0
-    // ) {
-    //   cards.update(result);
-    //   // if (result.length === 0) cards.update();
-    // }
-    this.activeRecipes = result;
     cards.update(result);
     console.log(result);
     return result;
