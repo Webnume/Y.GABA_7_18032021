@@ -24,7 +24,6 @@ export default class DataManager {
         this.fillHashedRecipes(element.ingredient.toLowerCase(), recipe.id);
       });
     });
-    console.log(this.recipesById);
   }
 
   fillHashedRecipes(name, id) {
@@ -59,15 +58,12 @@ export default class DataManager {
         key.toLowerCase().includes(text.toLowerCase()) &&
         allActiveID.indexOf(value) === -1
       ) {
-        console.log(key, value);
         allActiveID.push(value);
       }
     }
-    console.log(allActiveID);
     // Merge/flatten an array of arrays & Remove Array Duplicates
     let tmpMergedAllActiveID = allActiveID.reduce((a, b) => a.concat(b), []);
     let mergedAllActiveID = Array.from(new Set(tmpMergedAllActiveID));
-    console.log(mergedAllActiveID);
     if (mergedAllActiveID !== undefined) {
       for (let i = 0; i < mergedAllActiveID.length; i++) {
         if (
@@ -78,10 +74,8 @@ export default class DataManager {
           continue;
         this.activeRecipes.push(this.recipesById["id_" + mergedAllActiveID[i]]);
       }
-      console.log(this.activeRecipes, this.result);
       cards.update(this.activeRecipes);
     }
-    console.log(mergedAllActiveID);
     if (mergedAllActiveID.length === 0 && text === "") {
       cards.update(this.recipes);
       if (this.result.length > 0) {
@@ -187,7 +181,6 @@ export default class DataManager {
       activeFilters.ustensils.push(elementName);
     }
     this.filtered(activeFilters);
-    console.log(activeFilters);
   }
 
   removeselectedFilter(elementName) {
@@ -204,7 +197,6 @@ export default class DataManager {
     }
     event.currentTarget.remove();
     this.filtered(activeFilters);
-    console.log(activeFilters);
     if(activeFilters.ingredients.length===0 && activeFilters.ustensils.length===0 && activeFilters.appliance === undefined ){this.result=[]}
   }
 
@@ -245,7 +237,6 @@ export default class DataManager {
     }
     this.result = result;
     cards.update(result);
-    console.log(result);
     return result;
   }
 
