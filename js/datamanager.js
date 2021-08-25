@@ -5,7 +5,6 @@ export default class DataManager {
     activeFilters.ustensils = [];
     activeFilters.ingredients = [];
     activeFilters.mainSearchInput = "";
-    this.globalSearch = [];
   }
 
   /**
@@ -18,7 +17,6 @@ export default class DataManager {
   search(text) {
     activeFilters.mainSearchInput = text.toLowerCase();
     this.filtered(activeFilters);
-    console.log(activeFilters);
   }
 
   /**
@@ -112,7 +110,6 @@ export default class DataManager {
       activeFilters.ustensils.push(elementName);
     }
     this.filtered(activeFilters);
-    console.log(activeFilters);
   }
 
   removeselectedFilter(elementName) {
@@ -129,7 +126,6 @@ export default class DataManager {
     }
     event.currentTarget.remove();
     this.filtered(activeFilters);
-    console.log(activeFilters);
   }
 
   /**
