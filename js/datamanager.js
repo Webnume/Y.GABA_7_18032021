@@ -3,7 +3,7 @@ export default class DataManager {
     this.recipes = data;
     activeFilters.ustensils = [];
     activeFilters.ingredients = [];
-    activeFilters.appliance;
+    activeFilters.appliance;    
     this.recipesById = {};
     this.hashedRecipes = {};
     this.activeRecipes = [];
@@ -47,8 +47,11 @@ export default class DataManager {
    * @return  {object}        [return array of selected recipes]
    */
   search(text) {
+    if(activeFilters.appliance === undefined && activeFilters.ustensils.length===0 && activeFilters.ingredients===0 && text===""){
+      this.result=this.recipes;
+    }
     this.activeRecipes = [];
-    console.log(this.hashedRecipes);
+    // console.log(this.hashedRecipes);
     let allActiveID = [];
     for (const [key, value] of Object.entries(this.hashedRecipes)) {
       if (
@@ -75,9 +78,10 @@ export default class DataManager {
           continue;
         this.activeRecipes.push(this.recipesById["id_" + mergedAllActiveID[i]]);
       }
-      console.log(this.activeRecipes);
+      console.log(this.activeRecipes, this.result);
       cards.update(this.activeRecipes);
     }
+    console.log(mergedAllActiveID);
     if (mergedAllActiveID.length === 0 && text === "") {
       cards.update(this.recipes);
       if (this.result.length > 0) {
@@ -201,6 +205,7 @@ export default class DataManager {
     event.currentTarget.remove();
     this.filtered(activeFilters);
     console.log(activeFilters);
+    if(activeFilters.ingredients.length===0 && activeFilters.ustensils.length===0 && activeFilters.appliance === undefined ){this.result=[]}
   }
 
   /**
@@ -236,7 +241,7 @@ export default class DataManager {
         if (this.filterUstensils(value.ustensils, filters.ustensils)) sum++;
       }
       if (sum === Object.entries(filters).length) result.push(value);
-      console.log(sum, Object.entries(filters).length);
+      // console.log(sum, Object.entries(filters).length);
     }
     this.result = result;
     cards.update(result);
