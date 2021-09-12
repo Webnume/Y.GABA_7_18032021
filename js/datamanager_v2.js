@@ -78,7 +78,7 @@ export default class DataManager {
     }
     if (mergedAllActiveID.length === 0 && text === "") {
       cards.update(this.recipes);
-      if (this.result.length > 0) {
+      if (this.result.length > 0 ) {
         cards.update(this.result);
       }
     }

@@ -1,13 +1,12 @@
 import Card from "./card.js";
 import SearchMain from "./searchmain.js";
 import Filter from "./filter.js";
-import DataManager from "./datamanager.js";
+import DataManager from "./datamanager_v2.js";
 
 async function initPage() {
   try {
     let data = await fetch("./data/recipes.json");
     data = await data.json();
-
     window.cards = new Card(data);
     window.datamanager = new DataManager(data);
     window.searchmain = new SearchMain(data);
@@ -28,4 +27,4 @@ async function initPage() {
     console.error("Une erreur est survenue", err);
   }
 }
-initPage();
+window.onload = initPage();
