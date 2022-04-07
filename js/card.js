@@ -42,14 +42,13 @@ export default class Card {
   }
 
   templateMainNoResult() {
-    let cardDOM = `  
+    return `  
       <div class="noresult">
       Aucune recette ne correspond à votre critère… vous pouvez
       chercher « tarte aux pommes », « poisson », etc.
       
       </div>
         `;
-    return cardDOM;
   }
 
   getIngredients(i) {
@@ -57,18 +56,21 @@ export default class Card {
     let ingredient;
     let quantity;
     let unit;
-    for (let j = 0; j < this.recipes[i].ingredients.length; j++) {
+
+    let ingredientsArray = this.recipes[i].ingredients;
+
+    for (let ingred of ingredientsArray) {
       ingredient =
-        this.recipes[i].ingredients[j].ingredient !== undefined
-          ? this.recipes[i].ingredients[j].ingredient
+        ingred.ingredient !== undefined
+          ? ingred.ingredient
           : "";
       quantity =
-        this.recipes[i].ingredients[j].quantity !== undefined
-          ? ": " + this.recipes[i].ingredients[j].quantity
+        ingred.quantity !== undefined
+          ? ": " + ingred.quantity
           : "";
       unit =
-        this.recipes[i].ingredients[j].unit !== undefined
-          ? this.recipes[i].ingredients[j].unit
+        ingred.unit !== undefined
+          ? ingred.unit
           : "";
       html += `
     <li><span class="ingredient">${ingredient}</span><span class="quantity"> ${quantity} ${unit}</span></li>
